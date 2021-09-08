@@ -1,10 +1,10 @@
 'use strict';
 
 class node {
-  constructor(val) {
-    this.val = val;
-    this.leftNode = null;
-    this.rightNode = null;
+  constructor(val, left, right) {
+    this.val = Number(val);
+    this.leftNode = left || null;
+    this.rightNode = right || null;
   }
 };
 
@@ -33,7 +33,7 @@ const fillTree = () => {
   n2.leftNode = n1;
   n2.rightNode = n8;
   n8.rightNode = n9;
-}
+};
 fillTree();
 
 const serializeTree = (root) => {
@@ -48,8 +48,30 @@ const serializeTree = (root) => {
   let rightNode = serializeTree(root.rightNode);
   
   // return this value + left node + right node up the call stack
-  return `${root.val}${leftNode}${rightNode}`;
-}
+  return `${root.val},${leftNode},${rightNode}`;
+};
 
+const deserializeTree = (array) => {
+  const thisVal = array.shift();
+  
+  if (thisVal === 'X') {
+    return null;
+  }
+  
+  // create left node
+  let leftNode = deserializeTree(array);
+  
+  // create right node
+  let rightNode = deserializeTree(array);
+  
+  // return self node with link to left/right
+  return new node(thisVal, leftNode, rightNode);
+};
+
+console.dir('serializing');
 let serialized = serializeTree(binaryTree);
 console.dir(serialized);
+
+console.dir('deserializing');
+let deserialized = deserializeTree(serialized.split(","));
+console.dir(deserialized);
