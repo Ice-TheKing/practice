@@ -5,6 +5,24 @@ class node {
     this.val = Number(val);
     this.leftNode = left || null;
     this.rightNode = right || null;
+    
+    this.insert = (val) => {
+      if (this.val === val) {
+        return;
+      }
+      
+      if (val >= this.val) {
+        this.rightNode ?
+          this.rightNode.insert(val):
+          this.rightNode = new node(val);
+      }
+      else {
+        this.leftNode ?
+          this.leftNode.insert(val) :
+          this.leftNode = new node(val);
+      }
+    };
+    
   }
 };
 
@@ -76,42 +94,10 @@ console.dir('deserializing');
 let deserialized = deserializeTree(serialized.split(","));
 console.dir(deserialized);
 
-/// TODO: make this a function of node (so you can call node.insert instead of calling a helper function that is mutating the binary tree)
-const insert = (root, val) => {
-  // if val == root.val, return. Value already exists
-  if (root.val === val) {
-    return;
-  }
-  
-  // insert right?
-  if (val >= root.val) {
-    // is there a right child?
-    if (root.rightNode) {
-      insert(root.rightNode, val);
-    } 
-    // if not, create a node and add it there
-    else {
-      let newNode = new node(val);
-      root.rightNode = newNode;
-    }
-  } 
-  // insert left
-  else {
-    if (root.leftNode) {
-      insert(root.leftNode, val);
-    } 
-    // if not, create a node and add it there
-    else {
-      let newNode = new node(val);
-      root.leftNode = newNode;
-    }
-  }
-};
 
-let insertVal = -5;
+let insertVal = 14;
 console.dir(`inserting ${insertVal}`);
 
-insert(deserialized, insertVal);
-insert(deserialized, -1);
+deserialized.insert(insertVal);
 
 console.dir(deserialized);
