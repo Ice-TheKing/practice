@@ -7,7 +7,7 @@ class node {
     this.rightNode = right || null;
     
     this.insert = (val) => {
-      if (this.val === val) {
+      if (this.val === val || isNaN(val)) {
         return;
       }
       
@@ -23,10 +23,24 @@ class node {
       }
     };
     
+    /// sorts all nodes below this node
+    this.sort = () => {
+      // serialize the rest of the tree
+      let serialized = serializeTree(this).split(",");
+      
+      // clear child nodes
+      this.leftNode = this.rightNode = null;
+      
+      // re-insert nodes (insert function sorts them)
+      for(let i = 0; i < serialized.length; i++) {
+        this.insert(Number(serialized[i]));
+      }
+    };
+    
   }
-};
+}
 
-let binaryTree = new node(10);
+let binaryTree = new node(5);
 console.dir(binaryTree);
 
 const fillTree = () => {
@@ -35,16 +49,16 @@ const fillTree = () => {
   let n2 = new node(2);
   let n3 = new node(3);
   let n4 = new node(4);
-  let n5 = new node(5);
+  let n10 = new node(10);
   let n6 = new node(6);
   let n7 = new node(7);
   let n8 = new node(8);
   let n9 = new node(9);
   
   binaryTree.leftNode = n3;
-  n3.leftNode = n5;
-  n5.leftNode = n6;
-  n5.rightNode = n7;
+  n3.leftNode = n10;
+  n10.leftNode = n6;
+  n10.rightNode = n7;
   n7.leftNode = n4;
   n7.rightNode = n0;
   binaryTree.rightNode = n2;
@@ -101,3 +115,9 @@ console.dir(`inserting ${insertVal}`);
 deserialized.insert(insertVal);
 
 console.dir(deserialized);
+
+console.dir(`sorting tree`);
+deserialized.sort();
+console.dir(deserialized);
+console.dir('serialized:');
+console.dir(serializeTree(deserialized));
