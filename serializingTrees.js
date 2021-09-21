@@ -185,15 +185,15 @@ console.dir(sortedSerialized);
 // images
 
 const img1 = document.createElement("img");
-img1.src = "resources/unbalancedUnsortedBST.png";
+img1.src = "resources/BST/unbalancedUnsortedBST.png";
 img1.width = 640;
 
 const img2 = document.createElement("img");
-img2.src = "resources/sortedBST.png";
+img2.src = "resources/BST/sortedBST.png";
 img2.width = 480;
 
 const img3 = document.createElement("img");
-img3.src = "resources/balancedBST.png";
+img3.src = "resources/BST/balancedBST.png";
 img3.width = 900;
 
 document.body.appendChild(img1);
