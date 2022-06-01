@@ -98,7 +98,7 @@ const calculateRainfall = (heights, r, c, atlanticMap, pacificMap, checking = ne
 
     // check to see if neighbors touch
     // up
-    if (atlanticMap.get(stringifyCell(r,c-1)) === true) {
+    if (c-1 > 0 && heights[r][c] >= heights[r][c-1] && atlanticMap.get(stringifyCell(r,c-1)) === true) {
         touchesAtlantic = true;
     }
     if (pacificMap.get(stringifyCell(r,c-1)) === true) {
@@ -106,23 +106,23 @@ const calculateRainfall = (heights, r, c, atlanticMap, pacificMap, checking = ne
     }
 
     // left
-    if (atlanticMap.get(stringifyCell(r-1,c)) === true) {
+    if (r-1 > 0 && heights[r][c] >= heights[r-1][c] && atlanticMap.get(stringifyCell(r-1,c)) === true) {
         touchesAtlantic = true;
     }
     if (pacificMap.get(stringifyCell(r-1,c)) === true) {
         touchesPacific = true;
     }
 
-    // down
-    if (atlanticMap.get(stringifyCell(r+1,c)) === true) {
+    // right
+    if (r+1 < heights.length && heights[r][c] >= heights[r+1][c] && atlanticMap.get(stringifyCell(r+1,c)) === true) {
         touchesAtlantic = true;
     }
     if (pacificMap.get(stringifyCell(r+1,c)) === true) {
         touchesPacific = true;
     }
 
-    // up
-    if (atlanticMap.get(stringifyCell(r,c+1)) === true) {
+    // down
+    if (c+1 < heights[0].length && heights[r][c] >= heights[r][c+1] && atlanticMap.get(stringifyCell(r,c+1)) === true) {
         touchesAtlantic = true;
     }
     if (pacificMap.get(stringifyCell(r,c+1)) === true) {
