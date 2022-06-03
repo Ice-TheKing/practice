@@ -115,9 +115,9 @@ const buildString = (word, string = [], checking = new Set(), checked = new Set(
 
     // we are now checking this word
     checking.add(word.val);
-
+    
     // print each next word
-    for (let nextWord of word) {
+    for (let nextWord of word.nextNodes) {
         buildString(nextWord, string, checking, checked);
     }
 
